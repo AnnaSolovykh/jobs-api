@@ -12,7 +12,9 @@ const register = async (req, res) => {
     {
         expiresIn: '30d'
     });
-    res.status(StatusCodes.CREATED).json({ user:{name: user.name}, token });
+    res
+        .status(StatusCodes.CREATED)    
+        .json({ user:{name: user.getName()}, token });
 };
 
 const login = async (req, res) => {
