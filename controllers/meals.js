@@ -1,3 +1,7 @@
+const Meal =  require('../models/Meal');
+const { StatusCodes } = require('http-status-codes');
+//const { BadRequestError, NotFoundError } = require('../errors');
+
 const getAllMeals = async (req, res) => {
     res.send('register user')
 };
@@ -7,7 +11,9 @@ const getMeal = async (req, res) => {
 };
 
 const createMeal = async (req, res) => {
-    res.json(req.user)
+    req.body.createdBy = req.user.userId;
+    const meal = await Meal.create(req.body);
+    res.status(StatusCodes.CREATED).json({ meal })
 };
 
 const updateMeal = async (req, res) => {
