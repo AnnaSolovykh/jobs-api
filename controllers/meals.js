@@ -7,7 +7,7 @@ const getMeal = async (req, res) => {
 };
 
 const createMeal = async (req, res) => {
-    res.send('create meal')
+    res.json(req.user)
 };
 
 const updateMeal = async (req, res) => {
