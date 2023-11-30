@@ -1,13 +1,27 @@
 const Meal =  require('../models/Meal');
+const { NotFoundError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
-//const { BadRequestError, NotFoundError } = require('../errors');
 
 const getAllMeals = async (req, res) => {
-    res.send('register user')
+    const meals = await Meal.find({ createdBy: req.user.userId }).sort('createdAt');
+    res.status(StatusCodes.OK).json({ meals, count: meals.length  })
 };
 
 const getMeal = async (req, res) => {
-    res.send('login user')
+    const { 
+        user: { userId }, 
+        params:{ id: mealId } 
+    } = req;
+
+    const meal = await Meal.findOne({
+        _id: mealId, 
+        createdBy: userId
+    });
+    if (!meal) {
+        throw new NotFoundError(`No meal was found with id ${mealId}`);
+    }
+
+    res.status(StatusCodes.OK).json({ meal });
 };
 
 const createMeal = async (req, res) => {
