@@ -60,9 +60,22 @@ const updateMeal = async (req, res) => {
 };
 
 const deleteMeal = async (req, res) => {
-    res.send('delete meal')
-};
+    const { 
+        user: { userId }, 
+        params:{ id: mealId } 
+    } = req;
+    
+    const meal = await Meal.findByIdAndRemove({
+        _id: mealId, 
+        createdBy: userId
+    });
 
+    if (!meal) {
+        throw new NotFoundError(`No meal was found with id ${mealId}`);
+    }
+
+    res.status(StatusCodes.OK).send();
+};
 
 module.exports = {
     getAllMeals,
