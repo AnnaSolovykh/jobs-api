@@ -1,5 +1,5 @@
 const Meal =  require('../models/Meal');
-const { NotFoundError } = require('../errors');
+const { NotFoundError, BadRequestError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllMeals = async (req, res) => {
@@ -31,7 +31,32 @@ const createMeal = async (req, res) => {
 };
 
 const updateMeal = async (req, res) => {
-    res.send('update meal')
+    const { 
+        body: { title, type, isFavorite },
+        user: { userId }, 
+        params:{ id: mealId } 
+    } = req;
+
+    if (title === '' || type === '') {
+        throw new BadRequestError('Title or type cannot be empty')
+    }   
+    const meal = await Meal.findByIdAndUpdate(
+        {
+        _id: mealId, 
+        createdBy: userId
+        }, 
+        req.body,
+        {
+            new: true,
+            runValidators: true
+        }
+    );
+
+    if (!meal) {
+        throw new NotFoundError(`No meal was found with id ${mealId}`);
+    }
+
+    res.status(StatusCodes.OK).json({ meal });
 };
 
 const deleteMeal = async (req, res) => {
