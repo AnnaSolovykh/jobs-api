@@ -3,6 +3,7 @@ const { NotFoundError, BadRequestError } = require('../errors');
 const { StatusCodes } = require('http-status-codes');
 
 const getAllMeals = async (req, res) => {
+    console.log(req.user)
     const meals = await Meal.find({ createdBy: req.user.userId }).sort('createdAt');
     res.status(StatusCodes.OK).json({ meals, count: meals.length  })
 };
@@ -64,7 +65,7 @@ const deleteMeal = async (req, res) => {
         user: { userId }, 
         params:{ id: mealId } 
     } = req;
-    
+
     const meal = await Meal.findByIdAndRemove({
         _id: mealId, 
         createdBy: userId
