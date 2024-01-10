@@ -7,6 +7,14 @@ const doc = {
     },
     host: 'meals-api-solanna.onrender.com', 
     schemes: ['https'],
+    securityDefinitions: {
+        Bearer: {
+            type: 'apiKey',
+            in: 'header',
+            name: 'Authorization',
+            description: 'Enter your bearer token in the format **Bearer &lt;token>**',
+        }
+    }
 };
 
 const outputFile = './swagger-output.json'; 
