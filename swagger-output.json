@@ -97,6 +97,9 @@
           "200": {
             "description": "List of meals"
           },
+          "401": {
+            "description": "Invalid authentication"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -126,6 +129,9 @@
           "400": {
             "description": "Invalid input"
           },
+          "401": {
+            "description": "Invalid authentication"
+          },
           "500": {
             "description": "Internal Server Error"
           }
@@ -146,6 +152,9 @@
         "responses": {
           "200": {
             "description": "Meal details"
+          },
+          "401": {
+            "description": "Invalid authentication"
           },
           "404": {
             "description": "Meal not found"
@@ -169,6 +178,9 @@
           "200": {
             "description": "Meal deleted"
           },
+          "401": {
+            "description": "Invalid authentication"
+          },
           "404": {
             "description": "Meal not found"
           },
@@ -190,6 +202,9 @@
         "responses": {
           "200": {
             "description": "Meal updated"
+          },
+          "401": {
+            "description": "Invalid authentication"
           },
           "404": {
             "description": "Invalid input"
