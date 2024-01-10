@@ -12,7 +12,7 @@ const doc = {
             type: 'apiKey',
             in: 'header',
             name: 'Authorization',
-            description: 'Enter your bearer token in the format **Bearer &lt;token>**',
+            description: 'Enter your bearer token in the format **Bearer <token>**',
         }
     }
 };
