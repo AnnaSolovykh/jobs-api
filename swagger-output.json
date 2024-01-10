@@ -139,6 +139,9 @@
       }
     },
     "/meals/{id}": {
+      "security": [
+        { "Bearer": [] }
+      ],
       "get": {
         "description": "Get a meal by ID",
         "parameters": [
