@@ -1,49 +1,45 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "Meals API for Solanna",
     "description": "Daily Meals Options",
     "version": "1.0.0"
   },
-  "host": "meals-api-solanna.onrender.com",
   "basePath": "/api/v1",
-  "schemes": ["https"],
-  "securityDefinitions": {
-    "Bearer": {
-      "type": "apiKey",
-      "name": "Authorization",
-      "in": "header",
-      "description": "Enter your bearer token in the format **Bearer &lt;token&gt;**"
+  "servers": [
+    {
+      "url": "https://meals-api-solanna.onrender.com/"
     }
-  },
+  ],
   "paths": {
     "/auth/register": {
       "post": {
         "description": "Register a new user",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Anna Sol"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "anna@example.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "password123"
-                }
+        "requestBody": {
+          "required": true,
+          "content": {
+              "application/json": {
+                  "schema": {
+                      "type": "object",
+                      "properties": {
+                          "name": {
+                              "type": "string",
+                              "example": "Anna Sol"
+                          },
+                          "email": {
+                              "type": "string",
+                              "example": "anna@example.com"
+                          },
+                          "password": {
+                              "type": "string",
+                              "example": "password123"
+                          }
+                      },
+                      "required": ["name", "email", "password"]
+                  }
               }
-            }
           }
-        ],
+        },
         "responses": {
           "201": {
             "description": "User successfully registered"
@@ -57,26 +53,6 @@
     "/auth/login": {
       "post": {
         "description": "Login a user",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "anna@example.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "password123"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "200": {
             "description": "User successfully logged in"
@@ -84,15 +60,38 @@
           "401": {
             "description": "Unauthorized"
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+              "application/json": {
+                  "schema": {
+                      "type": "object",
+                      "properties": {
+                          "email": {
+                              "type": "string",
+                              "example": "anna10@gmail.com"
+                          },
+                          "password": {
+                              "type": "string",
+                              "example": "secret"
+                          }
+                      },
+                      "required": ["email", "password"]
+                  }
+              }
+          }
         }
       }
     },
     "/meals": {
-      "security": [
-        { "Bearer": [] }
-      ],
       "get": {
         "description": "Get a list of meals",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "List of meals"
@@ -107,19 +106,9 @@
       },
       "post": {
         "description": "Create a new meal",
-        "parameters": [
+        "security": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "title": { "type": "string", "maxLength": 40 },
-                "type": { "type": "string", "enum": ["breakfast", "snack", "lunch", "dinner"] },
-                "isFavorite": { "type": "boolean", "default": false }
-              },
-              "required": ["title", "type"]
-            }
+            "bearerAuth": []
           }
         ],
         "responses": {
@@ -135,21 +124,53 @@
           "500": {
             "description": "Internal Server Error"
           }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+              "application/json": {
+                  "schema": {
+                      "type": "object",
+                      "properties": {
+                          "title": {
+                              "type": "string",
+                              "maxLength": 40,
+                              "example": "Delicious Pancakes"
+                          },
+                          "type": {
+                              "type": "string",
+                              "enum": ["breakfast", "snack", "lunch", "dinner"],
+                              "example": "breakfast"
+                          },
+                          "isFavorite": {
+                              "type": "boolean",
+                              "default": false,
+                              "example": false
+                          }
+                      },
+                      "required": ["title", "type"]
+                  }
+              }
+          }
         }
       }
     },
     "/meals/{id}": {
-      "security": [
-        { "Bearer": [] }
-      ],
       "get": {
         "description": "Get a meal by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -169,12 +190,19 @@
       },
       "delete": {
         "description": "Delete a meal by ID",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -194,12 +222,19 @@
       },
       "patch": {
         "description": "Update a meal by ID",
+                "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -219,6 +254,15 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "description": "Enter your bearer token in the format **Bearer &lt;token&gt;**"
       }
     }
   }
