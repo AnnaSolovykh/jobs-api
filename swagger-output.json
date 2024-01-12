@@ -261,7 +261,7 @@
       "bearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "description": "Enter your bearer token in the format **Bearer &lt;token&gt;**"
+        "description": "Enter your bearer token in the format **&lt;token&gt;**"
       }
     }
   }
