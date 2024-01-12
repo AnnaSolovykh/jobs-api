@@ -76,7 +76,7 @@ const deleteMeal = async (req, res) => {
         throw new NotFoundError(`No meal was found with id ${mealId}`);
     }
 
-    res.status(StatusCodes.OK).send();
+    res.status(StatusCodes.OK).json({ msg: "The entry was deleted." })
 };
 
 module.exports = {
