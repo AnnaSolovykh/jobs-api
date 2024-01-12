@@ -5,10 +5,9 @@
     "description": "Daily Meals Options",
     "version": "1.0.0"
   },
-  "basePath": "/api/v1",
   "servers": [
     {
-      "url": "https://meals-api-solanna.onrender.com/"
+      "url": "https://meals-api-solanna.onrender.com/api/v1"
     }
   ],
   "paths": {
