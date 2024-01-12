@@ -10,6 +10,6 @@ const {
 } = require('../controllers/meals');
 
 router.route('/').post(createMeal).get(getAllMeals);
-router.route(':id').get(getMeal).delete(deleteMeal).patch(updateMeal);
+router.route('/:id').get(getMeal).delete(deleteMeal).patch(updateMeal);
 
 module.exports = router;
