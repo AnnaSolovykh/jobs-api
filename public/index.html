@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://meals-api-solanna.onrender.com">
         <title>Meals List</title>
+        <link href="index.css" rel="stylesheet"/>
     </head>
 
     <body>
@@ -13,11 +14,11 @@
         <hr />
         <p id="message"></p>
         <hr />
-        <div id="logon-register" style="display:none;">
+        <div id="logon-register">
             <button type="button" id="logon">logon</button>
             <button type="button" id="register">register</button>
         </div>
-        <div id="logon-div" style="display:none;">
+        <div id="logon-div">
             <form>
                 <div>
                 <label for="email">email:</label>
@@ -31,7 +32,7 @@
                 <button type="button" id="logon-cancel">cancel</button>
             </form>
         </div>
-        <div id="register-div" style="display:none;">
+        <div id="register-div">
             <form>
                 <div>
                     <label for="name">name:</label>
@@ -53,7 +54,7 @@
                 <button type="button" id="register-cancel">cancel</button>
             </form>
         </div>
-        <div id="meals" style="display:none;">
+        <div id="meals">
             <p id="meals-message"></p>
             <table id="meals-table">
                 <tr id="meals-table-header">
@@ -66,7 +67,7 @@
             <button type="button" id="add-meal">add meal</button>
             <button type="button" id="logoff">log off</button>
         </div>
-        <div id="edit-meal" style="display:none;">
+        <div id="edit-meal">
             <form>
                 <div>
                     <label for="title">Title:</label>
