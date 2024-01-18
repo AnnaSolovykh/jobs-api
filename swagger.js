@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen')();
+const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 
 const doc = {
     info: {
@@ -7,17 +7,23 @@ const doc = {
     },
     host: 'meals-api-solanna.onrender.com', 
     schemes: ['https'],
-    securityDefinitions: {
-        Bearer: {
-            type: 'apiKey',
-            in: 'header',
-            name: 'Authorization',
-            description: 'Enter your bearer token in the format **Bearer &lt;token&gt;**',
+    components: {
+        securitySchemes: {
+            bearerAuth: {
+                type: 'http',
+                scheme: 'bearer',
+                description: 'Enter your bearer token in the format **Bearer &lt;token&gt;**'
+            }
         }
-    }
+    },
+    security: [{
+        bearerAuth: []
+    }]
 };
 
 const outputFile = './swagger-output.json'; 
 const endpointsFiles = ['./routes/auth.js', './routes/meals.js']; 
 
-swaggerAutogen(outputFile, endpointsFiles, doc);
+swaggerAutogen(outputFile, endpointsFiles, doc).then(() => {
+    require('./app.js');
+});
